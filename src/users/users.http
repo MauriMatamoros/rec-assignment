@@ -1,9 +1,33 @@
 ### create a user
-POST http://localhost:3000/users
+POST localhost:3000/users
 Content-Type: application/json
 
 {
   "name": "Mauricio"
 }
 
-###
+### create a user with dietary restrictions
+POST localhost:3000/users
+Content-Type: application/json
+
+{
+  "name": "Juan",
+  "dietaryRestrictions": ["keto"]
+}
+
+### fetch all users
+GET localhost:3000/users
+
+### fetch one user
+GET localhost:3000/users/1
+
+### update user
+PATCH localhost:3000/users/1
+Content-Type: application/json
+
+{
+  "dietaryRestrictions": []
+}
+
+### delete user
+DELETE localhost:3000/users/8

@@ -1,26 +1,83 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from './models/user.model';
+import { InjectModel } from '@nestjs/sequelize';
+import { DietaryRestrictionsService } from '../dietary-restrictions/dietary-restrictions.service';
+import { DietaryRestriction } from '../dietary-restrictions/models/dietary-restrictions.model';
 
 @Injectable()
 export class UsersService {
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  constructor(
+    @InjectModel(User)
+    private userModel: typeof User,
+    private dietaryRestrictionService: DietaryRestrictionsService,
+  ) {}
+
+  private includeDietaryRestrictions = {
+    model: DietaryRestriction,
+    as: 'dietaryRestrictions',
+    through: { attributes: [] },
+  };
+
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    const user = await this.userModel.create({ name: createUserDto.name });
+
+    for (const dietaryRestriction of createUserDto.dietaryRestrictions) {
+      const restriction =
+        await this.dietaryRestrictionService.create(dietaryRestriction);
+
+      await user.$add('dietaryRestriction', restriction);
+    }
+
+    return this.userModel.findOne({
+      where: { id: user.id },
+      include: this.includeDietaryRestrictions,
+    });
   }
 
-  findAll() {
-    return `This action returns all users`;
+  findAll(): Promise<User[]> {
+    return this.userModel.findAll({ include: this.includeDietaryRestrictions });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: number): Promise<User> {
+    const user = await this.userModel.findOne({
+      where: { id },
+      include: this.includeDietaryRestrictions,
+    });
+
+    if (!user) {
+      throw new NotFoundException(`User with id ${id} not found`);
+    }
+
+    return user;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
+    const user = await this.findOne(id);
+
+    if (updateUserDto.name !== user.name) {
+      await user.update({ name: updateUserDto.name });
+    }
+
+    if (updateUserDto.dietaryRestrictions !== undefined) {
+      const newRestrictions = await Promise.all(
+        updateUserDto.dietaryRestrictions.map((restriction) =>
+          this.dietaryRestrictionService.create(restriction),
+        ),
+      );
+
+      await user.$set('dietaryRestrictions', newRestrictions);
+    }
+
+    return this.findOne(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: number): Promise<User> {
+    const user = await this.findOne(id);
+
+    await this.userModel.destroy({ where: { id } });
+
+    return user;
   }
 }
