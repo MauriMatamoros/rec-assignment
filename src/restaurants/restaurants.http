@@ -1,0 +1,25 @@
+### create a restuarant
+POST localhost:3000/restaurants
+Content-Type: application/json
+
+{
+  "name": "Test",
+  "endorsements": ["keto", "omnivore"]
+}
+
+### fetch restaurant by id
+GET localhost:3000/restaurants/2
+
+### fetch all restaurants
+GET localhost:3000/restaurants
+
+### update restaurant
+PATCH localhost:3000/restaurants/4
+Content-Type: application/json
+
+{
+  "endorsements": ["vegan", "paleo" ]
+}
+
+### delete restaurant
+DELETE localhost:3000/restaurants/2

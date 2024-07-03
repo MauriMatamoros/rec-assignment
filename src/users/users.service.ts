@@ -25,15 +25,12 @@ export class UsersService {
 
     for (const dietaryRestriction of createUserDto.dietaryRestrictions) {
       const restriction =
-        await this.dietaryRestrictionService.create(dietaryRestriction);
+        await this.dietaryRestrictionService.findOrCreate(dietaryRestriction);
 
       await user.$add('dietaryRestriction', restriction);
     }
 
-    return this.userModel.findOne({
-      where: { id: user.id },
-      include: this.includeDietaryRestrictions,
-    });
+    return this.findOne(user.id);
   }
 
   findAll(): Promise<User[]> {
@@ -63,7 +60,7 @@ export class UsersService {
     if (updateUserDto.dietaryRestrictions !== undefined) {
       const newRestrictions = await Promise.all(
         updateUserDto.dietaryRestrictions.map((restriction) =>
-          this.dietaryRestrictionService.create(restriction),
+          this.dietaryRestrictionService.findOrCreate(restriction),
         ),
       );
 

@@ -1,0 +1,25 @@
+### create table
+POST localhost:3000/tables
+Content-Type: application/json
+
+{
+  "capacity": 3,
+  "restaurantId": 2
+}
+
+### fetch table by id
+GET localhost:3000/tables/2
+
+### fetch all tables
+GET localhost:3000/tables
+
+### update table
+PATCH localhost:3000/tables/2
+Content-Type: application/json
+
+{
+  "capacity": 3
+}
+
+### delete table
+DELETE localhost:3000/tables/5

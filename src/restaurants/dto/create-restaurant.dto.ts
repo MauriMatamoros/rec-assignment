@@ -1,7 +1,7 @@
 import { IsArray, IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateUserDto {
+export class CreateRestaurantDto {
   @ApiProperty()
   @IsString()
   name: string;
@@ -10,5 +10,5 @@ export class CreateUserDto {
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
-  dietaryRestrictions?: string[];
+  endorsements?: string[];
 }

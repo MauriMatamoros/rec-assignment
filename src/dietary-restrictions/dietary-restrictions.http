@@ -1,0 +1,24 @@
+### create a dietary restriction
+POST localhost:3000/dietary-restrictions
+Content-Type: application/json
+
+{
+  "name": "gluten"
+}
+
+### fetch dietary restriction by id
+GET localhost:3000/dietary-restrictions/1
+
+### fetch all dietary restrictions
+GET localhost:3000/dietary-restrictions
+
+### update dietary restricion
+PATCH localhost:3000/dietary-restrictions/10
+Content-Type: application/json
+
+{
+  "name": "gluten"
+}
+
+### delete dietary restriction
+DELETE localhost:3000/dietary-restrictions/5

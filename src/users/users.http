@@ -11,14 +11,13 @@ POST localhost:3000/users
 Content-Type: application/json
 
 {
-  "name": "Juan",
-  "dietaryRestrictions": ["keto"]
+  "name": "Ana"
 }
 
 ### fetch all users
 GET localhost:3000/users
 
-### fetch one user
+### fetch user by id
 GET localhost:3000/users/1
 
 ### update user
