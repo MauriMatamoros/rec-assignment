@@ -23,11 +23,13 @@ export class UsersService {
   async create(createUserDto: CreateUserDto): Promise<User> {
     const user = await this.userModel.create({ name: createUserDto.name });
 
-    for (const dietaryRestriction of createUserDto.dietaryRestrictions) {
-      const restriction =
-        await this.dietaryRestrictionService.findOrCreate(dietaryRestriction);
+    if (createUserDto.dietaryRestrictions) {
+      for (const dietaryRestriction of createUserDto.dietaryRestrictions) {
+        const restriction =
+          await this.dietaryRestrictionService.findOrCreate(dietaryRestriction);
 
-      await user.$add('dietaryRestriction', restriction);
+        await user.$add('dietaryRestriction', restriction);
+      }
     }
 
     return this.findOne(user.id);

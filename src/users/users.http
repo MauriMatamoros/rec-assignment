@@ -11,7 +11,8 @@ POST localhost:3000/users
 Content-Type: application/json
 
 {
-  "name": "Ana"
+  "name": "User Six",
+  "dietaryRestrictions": ["vegan"]
 }
 
 ### fetch all users

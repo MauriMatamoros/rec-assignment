@@ -9,5 +9,6 @@ import { DietaryRestrictionsModule } from '../dietary-restrictions/dietary-restr
   imports: [SequelizeModule.forFeature([User]), DietaryRestrictionsModule],
   controllers: [UsersController],
   providers: [UsersService],
+  exports: [UsersService],
 })
 export class UsersModule {}

@@ -1,0 +1,18 @@
+### create a booking
+POST localhost:3000/bookings
+Content-Type: application/json
+
+{
+  "restaurantTableId": 2,
+  "startDate": "2024-07-06T01:00:00.000Z",
+  "guests": [1,4,6]
+}
+
+### fetch all bookings
+GET localhost:3000/bookings
+
+### fetch booking by id
+GET localhost:3000/bookings/6
+
+### delete booking
+DELETE localhost:3000/bookings/1

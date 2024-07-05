@@ -15,6 +15,10 @@ import { EndorsementsModule } from './endorsements/endorsements.module';
 import { RestaurantTable } from './restaurant-tables/models/restaurant-table.model';
 import { Restaurant } from './restaurants/models/restaurant.model';
 import { Endorsement } from './endorsements/models/endorsement.model';
+import { BookingsModule } from './bookings/bookings.module';
+import { GuestsModule } from './guests/guests.module';
+import { Booking } from './bookings/models/booking.model';
+import { Guest } from './guests/models/guest.model';
 
 @Module({
   imports: [
@@ -33,6 +37,8 @@ import { Endorsement } from './endorsements/models/endorsement.model';
         RestaurantTable,
         Restaurant,
         Endorsement,
+        Booking,
+        Guest,
       ],
       autoLoadModels: true,
       synchronize: true,
@@ -43,6 +49,8 @@ import { Endorsement } from './endorsements/models/endorsement.model';
     RestaurantsModule,
     RestaurantTablesModule,
     EndorsementsModule,
+    BookingsModule,
+    GuestsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
