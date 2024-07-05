@@ -51,6 +51,14 @@ Seed the database as described in the Development section.
 
 To view all endpoints and Swagger documentation, visit [`localhost:3000/api`](http://localhost:3000/api) once the application is running.
 
+Here are some examples of API calls:
+
+- Create a new booking: Send a `POST` request to `/bookings`
+- Delete a booking: Send a `DELETE` request to `/bookings/{id}`
+- Find available restaurants with tables: Send a `GET` request to `/restaurants` with query parameters `users`, `user`, and `date`.
+
+Replace `{id}` with the actual booking ID in the `DELETE` request.
+
 ## Database Diagram
 
 Please see the database diagram below.
