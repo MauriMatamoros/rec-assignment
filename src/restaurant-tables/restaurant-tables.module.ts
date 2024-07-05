@@ -9,5 +9,6 @@ import { RestaurantsModule } from '../restaurants/restaurants.module';
   imports: [SequelizeModule.forFeature([RestaurantTable]), RestaurantsModule],
   providers: [RestaurantTablesService],
   controllers: [RestaurantTablesController],
+  exports: [RestaurantTablesService],
 })
 export class RestaurantTablesModule {}

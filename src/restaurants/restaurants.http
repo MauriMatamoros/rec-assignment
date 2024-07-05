@@ -23,3 +23,7 @@ Content-Type: application/json
 
 ### delete restaurant
 DELETE localhost:3000/restaurants/2
+
+
+### fetch list of available restaurants
+GET localhost:3000/restaurants?users=1&users=4&date=2024-07-06T01:00:00.000Z

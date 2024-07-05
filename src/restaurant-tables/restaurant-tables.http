@@ -3,8 +3,8 @@ POST localhost:3000/tables
 Content-Type: application/json
 
 {
-  "capacity": 3,
-  "restaurantId": 2
+  "capacity": 2,
+  "restaurantId": 1
 }
 
 ### fetch table by id

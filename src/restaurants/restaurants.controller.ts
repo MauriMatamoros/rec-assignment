@@ -6,11 +6,15 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { RestaurantsService } from './restaurants.service';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiQuery, ApiTags } from '@nestjs/swagger';
+import { RestaurantFilterDto } from './dto/filter-restaurant.dto';
 
 @ApiTags('restaurants')
 @Controller('restaurants')
@@ -23,7 +27,19 @@ export class RestaurantsController {
   }
 
   @Get()
-  findAll() {
+  @ApiQuery({ name: 'users', required: false, type: 'number', isArray: true })
+  @ApiQuery({ name: 'user', required: false, type: 'number' })
+  @ApiQuery({ name: 'date', required: false, type: String })
+  @UsePipes(new ValidationPipe({ transform: true }))
+  findAll(@Query() filters: RestaurantFilterDto) {
+    const allowedKeys = ['user', 'users', 'date'];
+    const objectKeys = Object.keys(filters);
+    if (
+      objectKeys.every((key) => allowedKeys.includes(key)) &&
+      Object.keys(filters).length > 0
+    ) {
+      return this.restaurantsService.findAvailable(filters);
+    }
     return this.restaurantsService.findAll();
   }
 
