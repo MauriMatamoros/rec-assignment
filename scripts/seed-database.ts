@@ -6,6 +6,8 @@ import { RestaurantTable } from '../src/restaurant-tables/models/restaurant-tabl
 import { UserDietaryRestrictions } from '../src/user-dietary-restrictions/models/user-dietary-restrictions.model';
 import { Endorsement } from '../src/endorsements/models/endorsement.model';
 import * as dotenv from 'dotenv';
+import { Booking } from '../src/bookings/models/booking.model';
+import { Guest } from '../src/guests/models/guest.model';
 
 dotenv.config();
 
@@ -23,6 +25,8 @@ const sequelizeOptions: SequelizeOptions = {
     RestaurantTable,
     UserDietaryRestrictions,
     Endorsement,
+    Booking,
+    Guest,
   ],
 };
 
@@ -137,7 +141,7 @@ async function seedData() {
 
 seedData()
   .then(() => {
-    console.log('Data seeding completed!');
+    console.log('Data seeding...');
   })
   .catch((error) => {
     console.log('Error seeding data: ', error);
